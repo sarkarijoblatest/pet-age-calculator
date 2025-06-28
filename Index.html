@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Pet Age Calculator: Convert Dog, Cat, Rabbit & Bird Years to Human Years</title>
+    <meta name="description" content="Accurate pet age calculator converting dog years, cat years, rabbit & bird ages to human years. Learn your pet's life stage and get breed-specific health tips.">
+    <meta name="keywords" content="pet age calculator, dog years to human years, cat age calculator, how old is my dog in human years, dog age chart, puppy age calculator, human years to dog years calculator, pet years conversion, dog age by breed, cat years conversion">
+    <meta name="author" content="Pet Age Calculator">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://yourwebsite.com/pet-age-calculator" />
+    
+    <!-- Social Media Meta Tags -->
+    <meta property="og:title" content="Pet Age Calculator: Convert Dog, Cat, Rabbit & Bird Years to Human Years">
+    <meta property="og:description" content="Calculate your pet's age in human years with our easy-to-use calculator. Get estimated human age, life stage insights, and health tips for dogs, cats, rabbits, and birds.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourwebsite.com/pet-age-calculator">
+    <meta property="og:image" content="https://yourwebsite.com/images/pet-age-calculator-preview.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- Schema.org markup for Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Pet Age Calculator",
+      "description": "Accurate calculator to convert your dog, cat, rabbit or bird's age to human years with breed-specific formulas and life stage information.",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://yourwebsite.com/pet-age-calculator?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    
+    <style>
+        /* Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            background-color: #f5f7fa;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            min-height: 100vh;
+        }
+        
+        /* Skip to content link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #3498db;
+            color: white;
+            padding: 8px;
+            z-index: 100;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+        }
+        
+        /* Dark Theme Variables */
+        body.dark-mode {
+            background-color: #121212;
+            color: #f0f0f0;
+        }
+        
+        body.dark-mode .calculator,
+        body.dark-mode .results,
+        body.dark-mode .how-to-use,
+        body.dark-mode .pet-age-info,
+        body.dark-mode .breed-specific-section,
+        body.dark-mode .faq-section,
+        body.dark-mode .related-tools,
+        body.dark-mode .breed-guide-section {
+            background-color: #1e1e1e;
+            border: 1px solid #333;
+        }
+        
+        body.dark-mode select,
+        body.dark-mode input {
+            background-color: #2d2d2d;
+            color: #f0f0f0;
+            border-color: #444;
+        }
+        
+        body.dark-mode .info-note,
+        body.dark-mode .breed-info,
+        body.dark-mode .pet-age-info {
+            background-color: #2a2a2a;
+        }
+        
+        body.dark-mode .life-stage-info {
+            background-color: #2a2a2a;
+        }
+        
+        body.dark-mode .age-chart th,
+        body.dark-mode .age-chart td {
+            border-color: #444;
+        }
+        
+        body.dark-mode .age-chart th {
+            background-color: #2a2a2a;
+        }
+        
+        body.dark-mode .age-chart tr.current-age {
+            background-color: rgba(66, 135, 245, 0.2);
+        }
+        
+        /* Layout */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #3498db;
+        }
+        
+        .calculator-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .calculator, .results, .how-to-use, .pet-age-info,
+        .breed-specific-section, .faq-section, .related-tools,
+        .breed-guide-section {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .how-to-use, .pet-age-info,
+        .breed-specific-section, .faq-section, .related-tools,
+        .breed-guide-section {
+            flex-basis: 100%;
+            margin-top: 30px;
+        }
+        
+        .how-to-use h2, .pet-age-info h2, .pet-age-info h3,
+        .breed-specific-section h2, .faq-section h2, .related-tools h2,
+        .breed-guide-section h2, .breed-guide-section h3 {
+            color: #3498db;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .how-to-use ol, .pet-age-info ul,
+        .faq-section ul, .related-tools ul,
+        .breed-guide-section ul {
+            padding-left: 25px;
+            margin-bottom: 20px;
+        }
+
+        .how-to-use li, .pet-age-info li,
+        .faq-section li, .related-tools li,
+        .breed-guide-section li {
+            margin-bottom: 10px;
+        }
+
+        .how-to-use p, .pet-age-info p,
+        .breed-specific-section p, .faq-section p,
+        .breed-guide-section p {
+            margin-bottom: 10px;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #3498db;
+        }
+        
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            font-weight: bold;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            background: #2980b9;
+        }
+        
+        .theme-toggle {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        /* Results Section */
+        .human-years {
+            font-size: 32px;
+            font-weight: bold;
+            color: #3498db;
+            margin: 10px 0;
+        }
+        
+        .life-stage {
+            font-size: 22px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin: 15px 0 10px;
+        }
+        
+        .life-stage-info {
+            background: #f0f8ff;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .health-tips h3 {
+            color: #3498db;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin: 20px 0 15px;
+        }
+        
+        .health-tips ul {
+            padding-left: 25px;
+        }
+        
+        .health-tips li {
+            margin-bottom: 10px;
+        }
+        
+        .age-chart {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .age-chart th, .age-chart td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .age-chart th {
+            background: #f0f8ff;
+        }
+        
+        .age-chart tr.current-age {
+            background: rgba(52, 152, 219, 0.1);
+            font-weight: bold;
+        }
+        
+        .breed-info {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f0f8ff;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .info-note {
+            font-size: 14px;
+            color: #7f8c8d;
+            padding: 15px;
+            background: #f0f8ff;
+            border-radius: 5px;
+            margin-top: 30px;
+        }
+        
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        
+        body.dark-mode h1,
+        body.dark-mode h2,
+        body.dark-mode h3 {
+            color: #f0f0f0;
+        }
+        
+        /* New sections styling */
+        .breed-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .faq-item {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .faq-item h3 {
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+        
+        .related-tools ul {
+            columns: 2;
+            list-style-type: none;
+        }
+        
+        .related-tools li {
+            margin-bottom: 10px;
+        }
+        
+        .related-tools a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .related-tools a:hover {
+            text-decoration: underline;
+        }
+        
+        body.dark-mode .faq-item {
+            border-bottom-color: #444;
+        }
+        
+        body.dark-mode .related-tools a {
+            color: #4da6ff;
+        }
+
+        /* Breed Guide Section */
+        .breed-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .breed-category {
+            background: #f0f8ff;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .breed-category h4 {
+            color: #3498db;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        .breed-list {
+            columns: 2;
+            list-style-type: none;
+        }
+
+        .breed-list li {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+
+        .breed-detail {
+            margin-top: 15px;
+            padding: 10px;
+            background: #e6f2ff;
+            border-radius: 5px;
+        }
+
+        .breed-detail h5 {
+            color: #2980b9;
+            margin-bottom: 5px;
+        }
+
+        .breed-detail p {
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        body.dark-mode .breed-category,
+        body.dark-mode .breed-detail {
+            background-color: #2a2a2a;
+        }
+
+        body.dark-mode .breed-category h4 {
+            border-bottom-color: #444;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .calculator-container {
+                flex-direction: column;
+            }
+            
+            header {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            .breed-comparison,
+            .related-tools ul,
+            .breed-list {
+                grid-template-columns: 1fr;
+                columns: 1;
+            }
+
+            .breed-categories {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <header>
+        <h1>Pet Age Calculator: Convert Your Dog, Cat, or Other Pet's Age to Human Years</h1>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙 Dark Mode</button>
+    </header>
+    
+    <main id="main-content">
+        <div class="calculator-container">
+            <div class="calculator">
+                <div class="form-group">
+                    <label for="petType">Pet Type:</label>
+                    <select id="petType">
+                        <option value="">Select your pet</option>
+                        <option value="dog">Dog</option>
+                        <option value="cat">Cat</option>
+                        <option value="rabbit">Rabbit</option>
+                        <option value="hamster">Hamster</option>
+                        <option value="bird">Bird (Parrot)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group" id="breedGroup" style="display:none;">
+                    <label for="petBreed">Breed (optional):</label>
+                    <select id="petBreed">
+                        <option value="">Select breed or skip</option>
+                    </select>
+                    <div class="breed-info" id="breedInfo"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="petAge">Pet's Age:</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="number" id="petYears" min="0" max="50" placeholder="Years" style="flex:1;">
+                        <input type="number" id="petMonths" min="0" max="11" placeholder="Months" style="flex:1;">
+                    </div>
+                </div>
+                
+                <div class="form-group" id="sizeGroup" style="display:none;">
+                    <label for="petSize">Dog Size:</label>
+                    <select id="petSize">
+                        <option value="small">Small (under 20 lbs / 9 kg)</option>
+                        <option value="medium">Medium (20-50 lbs / 9-23 kg)</option>
+                        <option value="large">Large (50-90 lbs / 23-41 kg)</option>
+                        <option value="giant">Giant (over 90 lbs / 41 kg)</option>
+                    </select>
+                </div>
+                
+                <button onclick="calculateAge()">Calculate Age & Life Stage</button>
+            </div>
+            
+            <div class="results" id="results" style="display:none;">
+                <div class="result-section">
+                    <h2>Estimated Human Age for Your <span id="resultPetType"></span></h2>
+                    <p>Human equivalent age:</p>
+                    <p class="human-years"><span id="humanAge"></span> years</p>
+                    <p>Life stage: <span class="life-stage" id="lifeStage"></span></p>
+                    <div class="life-stage-info" id="lifeStageInfo"></div>
+                </div>
+                
+                <div class="result-section">
+                    <h3>Age Comparison Chart</h3>
+                    <table class="age-chart" id="ageChart">
+                        <thead>
+                            <tr>
+                                <th>Pet Age</th>
+                                <th>Human Age</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                
+                <div class="health-tips">
+                    <h3>Health & Care Tips for Your Pet</h3>
+                    <ul id="healthTipsList"></ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="pet-age-info">
+            <h2>Understanding Your Pet's Age in Human Years</h2>
+            <p>Our <strong>pet age calculator</strong> helps you better understand your furry or feathered friend's developmental stage by converting their actual age to <strong>human years equivalent</strong>. Unlike the old "multiply by 7" rule for dogs, modern veterinary science provides more accurate methods to calculate pet ages based on species, breed, and size.</p>
+            
+            <h3>Why Calculate Your Pet's Human Age?</h3>
+            <ul>
+                <li><strong>Better understand their life stage</strong> - Is your pet still a puppy/kitten or already a senior?</li>
+                <li><strong>Adjust care routines appropriately</strong> - Different life stages require different nutrition and exercise</li>
+                <li><strong>Monitor health changes</strong> - Know when to expect age-related changes</li>
+                <li><strong>Strengthen your bond</strong> - Understanding their perspective can improve your relationship</li>
+            </ul>
+            
+            <h3>How Pet Age Conversion Works</h3>
+            <p>Different animals age at different rates. For example, <strong>dogs age more quickly in their early years</strong> (a 1-year-old dog is already about 15 human years old), while <strong>cats mature quickly in the first 2 years</strong> then age about 4 human years per cat year. Small breed dogs typically live longer than large breeds, and some bird species can outlive their human owners!</p>
+        </div>
+
+        <!-- Breed-Specific Age Calculation Section -->
+        <div class="breed-specific-section">
+            <h2>Breed-Specific Age Calculations</h2>
+            <p>Different breeds age at different rates. Our calculator accounts for these variations:</p>
+            
+            <div class="breed-comparison">
+                <div>
+                    <h3>Dog Breed Lifespans</h3>
+                    <ul>
+                        <li><strong>Small breeds</strong> (Chihuahua, Pomeranian): 14-16 human years</li>
+                        <li><strong>Medium breeds</strong> (Labrador, Bulldog): 10-13 human years</li>
+                        <li><strong>Large breeds</strong> (German Shepherd, Golden Retriever): 9-11 human years</li>
+                        <li><strong>Giant breeds</strong> (Great Dane, Mastiff): 7-9 human years</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3>Cat Breed Variations</h3>
+                    <p>While most cats follow similar aging patterns, some breeds like Siamese often live longer (15-20 years) compared to average domestic cats (12-15 years).</p>
+                    
+                    <h3>Other Pets</h3>
+                    <ul>
+                        <li><strong>Rabbits:</strong> Smaller breeds tend to live longer than larger ones</li>
+                        <li><strong>Birds:</strong> Larger parrots can live 50+ years, while smaller birds typically live 10-20 years</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- NEW: Comprehensive Breed Guide Section -->
+        <div class="breed-guide-section">
+            <h2>Pet Breed Guide & Lifespan Information</h2>
+            <p>Understanding your pet's breed characteristics can help you provide better care throughout their life. Below is a comprehensive guide to popular breeds and their typical lifespans.</p>
+            
+            <div class="breed-categories">
+                <div class="breed-category">
+                    <h4>Dog Breeds</h4>
+                    <ul class="breed-list">
+                        <li>Labrador Retriever (10-14 years)</li>
+                        <li>German Shepherd (9-13 years)</li>
+                        <li>Golden Retriever (10-12 years)</li>
+                        <li>Bulldog (8-10 years)</li>
+                        <li>Beagle (12-15 years)</li>
+                        <li>Poodle (12-15 years)</li>
+                        <li>Chihuahua (14-16 years)</li>
+                        <li>Dachshund (12-16 years)</li>
+                        <li>Boxer (10-12 years)</li>
+                        <li>Shih Tzu (10-18 years)</li>
+                    </ul>
+                    
+                    <div class="breed-detail">
+                        <h5>Breed Size Matters</h5>
+                        <p>Small dog breeds generally live longer than large breeds. Giant breeds like Great Danes have much shorter lifespans (7-10 years) compared to small breeds like Chihuahuas (14-16 years).</p>
+                    </div>
+                </div>
+                
+                <div class="breed-category">
+                    <h4>Cat Breeds</h4>
+                    <ul class="breed-list">
+                        <li>Domestic Shorthair (12-15 years)</li>
+                        <li>Siamese (15-20 years)</li>
+                        <li>Persian (12-17 years)</li>
+                        <li>Maine Coon (10-13 years)</li>
+                        <li>Ragdoll (12-17 years)</li>
+                        <li>Bengal (12-16 years)</li>
+                        <li>Sphynx (8-14 years)</li>
+                        <li>British Shorthair (12-20 years)</li>
+                        <li>Abyssinian (9-15 years)</li>
+                        <li>Scottish Fold (11-14 years)</li>
+                    </ul>
+                    
+                    <div class="breed-detail">
+                        <h5>Cat Longevity Factors</h5>
+                        <p>Indoor cats typically live longer than outdoor cats. Mixed breed cats often have fewer genetic health issues than purebreds, contributing to longer lifespans.</p>
+                    </div>
+                </div>
+                
+                <div class="breed-category">
+                    <h4>Rabbit Breeds</h4>
+                    <ul class="breed-list">
+                        <li>Netherland Dwarf (7-10 years)</li>
+                        <li>Holland Lop (5-7 years)</li>
+                        <li>Mini Rex (7-10 years)</li>
+                        <li>Lionhead (7-10 years)</li>
+                        <li>Flemish Giant (5-8 years)</li>
+                        <li>English Lop (5-7 years)</li>
+                        <li>Mini Lop (7-14 years)</li>
+                        <li>Dutch (5-8 years)</li>
+                        <li>Jersey Wooly (7-10 years)</li>
+                        <li>Himalayan (5-8 years)</li>
+                    </ul>
+                    
+                    <div class="breed-detail">
+                        <h5>Rabbit Care Tips</h5>
+                        <p>Proper diet (unlimited hay, fresh greens) and regular vet checkups can significantly extend a rabbit's lifespan. Spaying/neutering also improves longevity.</p>
+                    </div>
+                </div>
+                
+                <div class="breed-category">
+                    <h4>Bird Breeds</h4>
+                    <ul class="breed-list">
+                        <li>African Grey Parrot (40-60 years)</li>
+                        <li>Cockatiel (15-20 years)</li>
+                        <li>Budgerigar (5-10 years)</li>
+                        <li>Cockatoo (40-60 years)</li>
+                        <li>Amazon Parrot (40-60 years)</li>
+                        <li>Macaw (50-80 years)</li>
+                        <li>Conure (20-30 years)</li>
+                        <li>Lovebird (10-15 years)</li>
+                        <li>Eclectus Parrot (30-50 years)</li>
+                        <li>Quaker Parrot (20-30 years)</li>
+                    </ul>
+                    
+                    <div class="breed-detail">
+                        <h5>Bird Longevity</h5>
+                        <p>Larger parrot species can outlive their owners! Proper nutrition, mental stimulation, and regular avian vet care are essential for their long-term health.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h3>Factors Affecting Pet Lifespan</h3>
+            <ul>
+                <li><strong>Genetics:</strong> Some breeds are predisposed to longer or shorter lifespans</li>
+                <li><strong>Size:</strong> In dogs and rabbits, smaller breeds typically live longer</li>
+                <li><strong>Diet:</strong> Proper nutrition significantly impacts longevity</li>
+                <li><strong>Exercise:</strong> Regular activity maintains health and prevents obesity</li>
+                <li><strong>Veterinary Care:</strong> Preventive care and early disease detection extend life</li>
+                <li><strong>Environment:</strong> Indoor pets generally live longer than outdoor pets</li>
+                <li><strong>Spaying/Neutering:</strong> Can reduce certain health risks and extend lifespan</li>
+            </ul>
+        </div>
+        
+        <!-- Comprehensive FAQ Section -->
+        <div class="faq-section">
+            <h2>Pet Age Conversion FAQs</h2>
+            
+            <div class="faq-item">
+                <h3>How do you convert dog age to human age?</h3>
+                <p>The old "multiply by 7" rule is outdated. Modern calculations account for rapid aging in the first 2 years, then size-dependent aging thereafter. Small dogs age slower than large breeds after reaching maturity. Our calculator uses the most accurate formulas based on veterinary research.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>What is the cat to human years calculation?</h3>
+                <p>Cats age quickly in their first 2 years (15 human years at age 1, +9 years at age 2), then about 4 human years per cat year after that. This means a 5-year-old cat is approximately 36 in human years.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>How old is a 13-year-old dog in human years?</h3>
+                <p>It depends on size: Small breed ≈68, Medium ≈74, Large ≈82, Giant ≈90 human years. Use our calculator for precise breed-specific results. This explains why small dogs often live longer than large breeds.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>Why do dog years exist?</h3>
+                <p>Dog years help us understand their life stages relative to humans. Dogs mature faster initially but aging slows as they grow older, especially in smaller breeds. The concept helps owners provide age-appropriate care throughout their pet's life.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>Is 15 old for a dog?</h3>
+                <p>Yes, 15 is very old for most dogs. Small breeds may live this long, but giant breeds rarely exceed 8-10 years. At 15, dogs require special senior care including more frequent vet visits, joint supplements, and possibly diet adjustments.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>How accurate is this pet age calculator?</h3>
+                <p>Our calculator uses the most current veterinary research on pet aging. While it provides a good estimate, individual pets may vary based on genetics, health, and lifestyle. Always consult your vet for personalized advice about your pet.</p>
+            </div>
+        </div>
+        
+        <!-- Related Tools Section -->
+        <div class="related-tools">
+            <h2>Related Pet Calculators</h2>
+            <ul>
+                <li><a href="/dog-age-calculator">Dog Age Calculator by Birthday</a> - Find exact age based on birth date</li>
+                <li><a href="/puppy-age-calculator">Puppy Age Calculator</a> - Convert weeks to months for puppies</li>
+                <li><a href="/cat-age-calculator">Cat Years to Human Years Converter</a> - Specialized feline age calculator</li>
+                <li><a href="/pet-life-expectancy">Pet Life Expectancy by Breed</a> - See average lifespan for different breeds</li>
+                <li><a href="/dog-size-calculator">Dog Size Predictor</a> - Estimate adult size for puppies</li>
+                <li><a href="/pet-calorie-calculator">Pet Calorie Calculator</a> - Determine ideal food portions by age</li>
+            </ul>
+        </div>
+
+        <div class="how-to-use">
+            <h2>How to Use This Pet Age Calculator</h2>
+            <p>Our easy-to-use <strong>Pet Age Calculator</strong> helps you quickly convert your furry or feathered friend's age into human years, providing insights into their life stage and offering valuable health and care tips. Follow these simple steps to get started:</p>
+            <ol>
+                <li><strong>Select Pet Type:</strong> Choose your pet from the "Pet Type" dropdown menu. Options include <strong>dog</strong>, <strong>cat</strong>, <strong>rabbit</strong>, <strong>hamster</strong>, and <strong>bird</strong>.</li>
+                <li><strong>Choose Breed (Optional):</strong> If you have a dog or a specific breed of cat/rabbit/bird, you can select their breed from the "Breed" dropdown. This may provide more tailored information and lifespan details.</li>
+                <li><strong>Enter Pet's Age:</strong> Input your pet's current age in both "Years" and "Months." For example, for a 2-year and 6-month-old pet, enter '2' in years and '6' in months.</li>
+                <li><strong>Select Dog Size (Dogs Only):</strong> If you selected "Dog" as your pet type, an additional "Dog Size" dropdown will appear. Choose the size that best describes your dog (Small, Medium, Large, or Giant). This is crucial for accurate <strong>dog years to human years</strong> calculations, as dog size significantly impacts their aging process.</li>
+                <li><strong>Calculate Age:</strong> Click the "Calculate Age & Life Stage" button.</li>
+                <li><strong>View Results:</strong> The "Age Results" section will display your pet's estimated human equivalent age, their current life stage (e.g., puppy, adult, senior), and helpful <strong>pet health tips</strong> specific to their type and age. You'll also see an <strong>age comparison chart</strong> showing the conversion for various pet ages.</li>
+            </ol>
+            <p>Switch between 🌙 Dark Mode and ☀️ Light Mode using the toggle in the header for comfortable viewing at any time. Understand your pet's life journey better with our comprehensive <strong>pet age converter</strong>!</p>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="info-note">
+            <p><strong>Note:</strong> This calculator provides estimates based on widely accepted formulas. Always consult your veterinarian for personalized pet health advice, specific breed information, and precise guidance on your pet's well-being.</p>
+        </div>
+    </footer>
+
+    <script>
+        // ====== DARK MODE TOGGLE ======
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        
+        // Apply saved theme or set default
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-mode');
+            themeToggle.textContent = '☀️ Light Mode';
+        } else {
+            body.classList.remove('dark-mode');
+            themeToggle.textContent = '🌙 Dark Mode';
+        }
+        
+        // Toggle dark mode
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            // Update button text
+            if (body.classList.contains('dark-mode')) {
+                themeToggle.textContent = '☀️ Light Mode';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeToggle.textContent = '🌙 Dark Mode';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // ====== PET CALCULATOR LOGIC ======
+        // Enhanced breed data with lifespans and health notes
+        const breedData = {
+            dog: [
+                { name: "Labrador Retriever", lifespan: "10-14 years", info: "Friendly, outgoing breed prone to hip dysplasia and obesity. Needs regular exercise." },
+                { name: "German Shepherd", lifespan: "9-13 years", info: "Intelligent working dog prone to hip dysplasia. Needs mental stimulation." },
+                { name: "Golden Retriever", lifespan: "10-12 years", info: "Friendly family dog prone to cancer and joint issues." },
+                { name: "Bulldog", lifespan: "8-10 years", info: "Docile but prone to breathing problems and overheating." },
+                { name: "Beagle", lifespan: "12-15 years", info: "Friendly, curious scent hound prone to obesity." },
+                { name: "Poodle (Standard)", lifespan: "12-15 years", info: "Highly intelligent and active. Prone to hip dysplasia." },
+                { name: "Chihuahua", lifespan: "14-16 years", info: "Small but long-lived. Prone to dental problems." },
+                { name: "Dachshund", lifespan: "12-16 years", info: "Long-bodied breed prone to back problems." },
+                { name: "Boxer", lifespan: "10-12 years", info: "Energetic breed prone to heart conditions." },
+                { name: "Shih Tzu", lifespan: "10-18 years", info: "Long-lived small breed prone to eye problems." },
+                { name: "Siberian Husky", lifespan: "12-14 years", info: "High-energy working dog prone to eye issues." },
+                { name: "Great Dane", lifespan: "7-10 years", info: "Giant breed with shorter lifespan. Prone to bloat." },
+                { name: "Pomeranian", lifespan: "12-16 years", info: "Small, fluffy companion dog with long lifespan." },
+                { name: "Rottweiler", lifespan: "9-10 years", info: "Powerful working dog prone to hip dysplasia." },
+                { name: "Yorkshire Terrier", lifespan: "13-16 years", info: "Small companion breed with long lifespan." }
+            ],
+            cat: [
+                { name: "Domestic Shorthair", lifespan: "12-15 years", info: "Mixed breed cats with varied characteristics." },
+                { name: "Siamese", lifespan: "15-20 years", info: "Vocal, social cats prone to respiratory issues." },
+                { name: "Persian", lifespan: "12-17 years", info: "Long-haired cats prone to breathing and eye issues." },
+                { name: "Maine Coon", lifespan: "10-13 years", info: "Large, gentle cats prone to heart disease." },
+                { name: "Ragdoll", lifespan: "12-17 years", info: "Docile, affectionate cats with pointed coloration." },
+                { name: "Bengal", lifespan: "12-16 years", info: "Energetic cats with wild-looking spotted coats." },
+                { name: "Sphynx", lifespan: "8-14 years", info: "Hairless cats that need protection from sun and cold." },
+                { name: "British Shorthair", lifespan: "12-20 years", info: "Stocky cats with dense coats and round faces." },
+                { name: "Abyssinian", lifespan: "9-15 years", info: "Active, playful cats with ticked coats." },
+                { name: "Scottish Fold", lifespan: "11-14 years", info: "Known for folded ears. Prone to joint issues." },
+                { name: "Russian Blue", lifespan: "15-20 years", info: "Shy, quiet cats with blue-gray coats." },
+                { name: "Burmese", lifespan: "10-17 years", info: "Affectionate, people-oriented cats." },
+                { name: "American Shorthair", lifespan: "15-20 years", info: "Healthy, adaptable domestic cats." },
+                { name: "Norwegian Forest Cat", lifespan: "14-16 years", info: "Large, long-haired cats adapted to cold climates." },
+                { name: "Exotic Shorthair", lifespan: "12-15 years", info: "Short-haired version of Persian with similar traits." }
+            ],
+            rabbit: [
+                { name: "Netherland Dwarf", lifespan: "7-10 years", info: "Tiny rabbits prone to dental issues due to small jaws." },
+                { name: "Holland Lop", lifespan: "5-7 years", info: "Small lop-eared rabbits prone to ear infections." },
+                { name: "Mini Rex", lifespan: "7-10 years", info: "Small rabbits with velvety fur." },
+                { name: "Lionhead", lifespan: "7-10 years", info: "Small rabbits with distinctive mane of fur." },
+                { name: "Flemish Giant", lifespan: "5-8 years", info: "Very large breed with shorter lifespan." },
+                { name: "English Lop", lifespan: "5-7 years", info: "Known for extremely long ears." },
+                { name: "Mini Lop", lifespan: "7-14 years", info: "Popular small lop-eared breed." },
+                { name: "Dutch", lifespan: "5-8 years", info: "Small rabbits with distinctive color pattern." },
+                { name: "Jersey Wooly", lifespan: "7-10 years", info: "Small rabbits with wooly fur." },
+                { name: "Himalayan", lifespan: "5-8 years", info: "Colorpoint rabbits similar to Himalayan cats." },
+                { name: "Californian", lifespan: "5-10 years", info: "Medium-sized rabbits with colorpoint pattern." },
+                { name: "New Zealand", lifespan: "5-8 years", info: "Large breed often used for meat and fur." },
+                { name: "Rex", lifespan: "5-6 years", info: "Known for plush, velvety fur." },
+                { name: "Polish", lifespan: "5-6 years", info: "Small, compact rabbits." },
+                { name: "Silver Fox", lifespan: "5-7 years", info: "Large rabbits with silver-tipped fur." }
+            ],
+            hamster: [
+                { name: "Syrian Hamster", lifespan: "2-3 years", info: "Largest pet hamster. Must live alone." },
+                { name: "Dwarf Campbell Russian", lifespan: "1.5-2 years", info: "Small, social hamsters that can live in pairs." },
+                { name: "Dwarf Winter White Russian", lifespan: "1.5-2 years", info: "Changes coat color in winter in the wild." },
+                { name: "Roborovski Dwarf", lifespan: "3-3.5 years", info: "Tiniest and fastest hamsters." },
+                { name: "Chinese Hamster", lifespan: "2-3 years", info: "Long-tailed hamster species." },
+                { name: "Teddy Bear Hamster", lifespan: "2-3 years", info: "Long-haired variety of Syrian hamster." },
+                { name: "Black Bear Hamster", lifespan: "2-3 years", info: "Dark-colored Syrian hamster variety." },
+                { name: "Panda Bear Hamster", lifespan: "2-3 years", info: "Color variety of Syrian hamster." },
+                { name: "Golden Hamster", lifespan: "2-3 years", info: "Original color variety of Syrian hamster." },
+                { name: "Albino Hamster", lifespan: "2-3 years", info: "White with red eyes, found in several species." },
+                { name: "Bandit Hamster", lifespan: "2-3 years", info: "Syrian hamster with distinctive markings." },
+                { name: "Satin Hamster", lifespan: "2-3 years", info: "Syrian hamster with shiny coat mutation." },
+                { name: "Long-haired Hamster", lifespan: "2-3 years", info: "Syrian hamster variety with long fur." },
+                { name: "Short-haired Hamster", lifespan: "2-3 years", info: "Standard Syrian hamster coat type." },
+                { name: "Dominant Spot Hamster", lifespan: "2-3 years", info: "Syrian hamster with spotted pattern." }
+            ],
+            bird: [
+                { name: "African Grey Parrot", lifespan: "40-60 years", info: "Highly intelligent, needs mental stimulation." },
+                { name: "Cockatiel", lifespan: "15-20 years", info: "Small crested parrot, good for beginners." },
+                { name: "Budgerigar (Budgie)", lifespan: "5-10 years", info: "Small, popular parakeet species." },
+                { name: "Cockatoo", lifespan: "40-60 years", info: "Demanding, emotional birds that need attention." },
+                { name: "Amazon Parrot", lifespan: "40-60 years", info: "Colorful, talkative medium-sized parrots." },
+                { name: "Macaw", lifespan: "50-80 years", info: "Large, colorful parrots requiring space." },
+                { name: "Conure", lifespan: "20-30 years", info: "Small to medium parrots with big personalities." },
+                { name: "Lovebird", lifespan: "10-15 years", info: "Small, affectionate parrots often kept in pairs." },
+                { name: "Eclectus Parrot", lifespan: "30-50 years", info: "Sexually dimorphic with striking colors." },
+                { name: "Quaker Parrot", lifespan: "20-30 years", info: "Small, intelligent and good talkers." },
+                { name: "Pionus Parrot", lifespan: "25-40 years", info: "Quieter medium-sized parrots." },
+                { name: "Senegal Parrot", lifespan: "25-30 years", info: "Small African parrot with big personality." },
+                { name: "Parrotlet", lifespan: "15-20 years", info: "Tiny parrots with big attitudes." },
+                { name: "Caique", lifespan: "20-30 years", info: "Playful, clown-like small parrots." },
+                { name: "Lorikeet", lifespan: "15-20 years", info: "Colorful nectar-feeding parrots." }
+            ]
+        };
+
+               // Initialize pet type selector
+        document.getElementById('petType').addEventListener('change', function() {
+            const petType = this.value;
+            const sizeGroup = document.getElementById('sizeGroup');
+            const breedGroup = document.getElementById('breedGroup');
+            const breedSelect = document.getElementById('petBreed');
+            
+            // Show size selection only for dogs
+            sizeGroup.style.display = petType === 'dog' ? 'block' : 'none';
+            
+            // Populate breed dropdown if pet type has breeds
+            if (petType && breedData[petType]) {
+                breedGroup.style.display = 'block';
+                breedSelect.innerHTML = '<option value="">Select breed or skip</option>';
+                
+                // Add all breeds for the selected pet type
+                breedData[petType].forEach(breed => {
+                    const option = document.createElement('option');
+                    option.value = breed.name;
+                    option.textContent = `${breed.name} (${breed.lifespan})`;
+                    breedSelect.appendChild(option);
+                });
+            } else {
+                breedGroup.style.display = 'none';
+                document.getElementById('breedInfo').style.display = 'none';
+            }
+            
+            // Hide results when changing pet type
+            document.getElementById('results').style.display = 'none';
+        });
+
+        // Breed info display
+        document.getElementById('petBreed').addEventListener('change', function() {
+            const petType = document.getElementById('petType').value;
+            const breed = this.value;
+            const breedInfo = document.getElementById('breedInfo');
+            
+            if (breed && petType) {
+                const selectedBreed = breedData[petType].find(b => b.name === breed);
+                if (selectedBreed) {
+                    breedInfo.innerHTML = `<strong>${selectedBreed.name}:</strong> ${selectedBreed.info}`;
+                    breedInfo.style.display = 'block';
+                }
+            } else {
+                breedInfo.style.display = 'none';
+            }
+        });
+
+        // Main calculation function
+        function calculateAge() {
+            const petType = document.getElementById('petType').value;
+            const years = parseInt(document.getElementById('petYears').value) || 0;
+            const months = parseInt(document.getElementById('petMonths').value) || 0;
+            const petAge = years + (months / 12);
+            const breed = document.getElementById('petBreed').value;
+            
+            // Validate inputs
+            if (!petType) {
+                alert("Please select your pet type to calculate their age.");
+                return;
+            }
+            
+            if (years === 0 && months === 0) {
+                alert("Please enter your pet's age in years or months.");
+                return;
+            }
+            
+            let humanAge, lifeStage, lifeStageInfo, healthTips, ageChartData;
+            
+            if (petType === 'dog') {
+                const size = document.getElementById('petSize').value;
+                humanAge = calculateDogAge(petAge, size);
+                lifeStage = getDogLifeStage(petAge, size);
+                lifeStageInfo = getLifeStageInfo('dog', lifeStage);
+                healthTips = getHealthTips('dog', petAge, size, breed);
+                ageChartData = generateAgeChart('dog', size);
+            } 
+            else {
+                humanAge = calculateGenericAge(petType, petAge);
+                lifeStage = getGenericLifeStage(petType, petAge);
+                lifeStageInfo = getLifeStageInfo(petType, lifeStage);
+                healthTips = getHealthTips(petType, petAge, null, breed);
+                ageChartData = generateAgeChart(petType);
+            }
+            
+            // Update results
+            document.getElementById('resultPetType').textContent = petType;
+            document.getElementById('humanAge').textContent = humanAge.toFixed(1);
+            document.getElementById('lifeStage').textContent = lifeStage;
+            document.getElementById('lifeStageInfo').innerHTML = lifeStageInfo;
+            
+            // Update health tips
+            const tipsList = document.getElementById('healthTipsList');
+            tipsList.innerHTML = '';
+            healthTips.forEach(tip => {
+                const li = document.createElement('li');
+                li.textContent = tip;
+                tipsList.appendChild(li);
+            });
+            
+            // Update age chart
+            const ageChart = document.getElementById('ageChart').querySelector('tbody');
+            ageChart.innerHTML = '';
+            ageChartData.forEach(row => {
+                const tr = document.createElement('tr');
+                if (row.isCurrent) tr.classList.add('current-age');
+                
+                const td1 = document.createElement('td');
+                td1.textContent = row.petAge;
+                const td2 = document.createElement('td');
+                td2.textContent = row.humanAge;
+                
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                ageChart.appendChild(tr);
+            });
+            
+            document.getElementById('results').style.display = 'block';
+        }
+
+        // ====== DOG CALCULATIONS ======
+        function calculateDogAge(age, size) {
+            // Updated dog age calculation for better accuracy
+            // Sources: AKC, various vet resources
+            if (age <= 0.5) return age * 10; // First 6 months are rapid
+            if (age <= 1) return 5 + (age - 0.5) * 10; // 6 months to 1 year is also rapid
+            
+            let baseHumanAge;
+            let yearlyIncrease;
+
+            if (size === 'small') {
+                baseHumanAge = 15; // Age 1 in human years for small dogs
+                yearlyIncrease = 4;
+            } else if (size === 'medium') {
+                baseHumanAge = 15; // Age 1 in human years for medium dogs
+                yearlyIncrease = 5;
+            } else if (size === 'large') {
+                baseHumanAge = 14; // Age 1 in human years for large dogs
+                yearlyIncrease = 6;
+            } else if (size === 'giant') {
+                baseHumanAge = 12; // Age 1 in human years for giant dogs
+                yearlyIncrease = 7;
+            } else { // Default to medium if size not selected (shouldn't happen with dropdown)
+                baseHumanAge = 15;
+                yearlyIncrease = 5;
+            }
+
+            // For ages beyond 1 year
+            return baseHumanAge + (age - 1) * yearlyIncrease;
+        }
+
+        function getDogLifeStage(age, size) {
+            if (age < 0.5) return 'Puppy (0-6 months)';
+            if (age < 1) return 'Junior (6-12 months)';
+            if (age < 2) return 'Adolescent (1-2 years)';
+            
+            const seniorAge = size === 'small' ? 10 : size === 'medium' ? 8 : size === 'large' ? 6 : 5;
+            if (age >= seniorAge) return 'Senior';
+            if (age >= (seniorAge - 3)) return 'Mature Adult';
+            return 'Adult';
+        }
+
+        // ====== GENERIC CALCULATIONS (CATS, RABBITS, ETC.) ======
+        function calculateGenericAge(petType, age) {
+            const formulas = {
+                // Cat age conversion based on common vet guidelines
+                cat: age <= 1 ? age * 15 : age <= 2 ? 15 + (age - 1) * 9 : 24 + (age - 2) * 4,
+                // Rabbit age conversion
+                rabbit: age <= 1 ? age * 20 : age <= 2 ? 20 + (age - 1) * 8 : 28 + (age - 2) * 6,
+                // Hamster age conversion
+                hamster: age * 25, // Hamsters have very short lifespans, so a linear conversion is often used
+                // Bird age (Parrot) conversion - highly variable by species
+                bird: age <= 1 ? age * 10 : age <= 3 ? 10 + (age - 1) * 10 : 28 + (age - 3) * 3
+            };
+            return formulas[petType] || 0;
+        }
+
+        function getGenericLifeStage(petType, age) {
+            const stages = {
+                cat: age < 0.5 ? 'Kitten' : age < 1 ? 'Junior (6-12 months)' : age < 2 ? 'Adolescent (1-2 years)' : age < 7 ? 'Adult' : age < 11 ? 'Mature' : 'Senior',
+                rabbit: age < 0.5 ? 'Baby' : age < 1 ? 'Junior (6-12 months)' : age < 3 ? 'Adult' : age < 5 ? 'Mature' : 'Senior',
+                hamster: age < 0.25 ? 'Baby' : age < 0.5 ? 'Juvenile' : age < 1.5 ? 'Adult' : 'Senior',
+                bird: age < 0.5 ? 'Hatchling' : age < 1 ? 'Fledgling (Juvenile)' : age < 3 ? 'Sub-Adult' : age < 10 ? 'Adult' : 'Senior'
+            };
+            return stages[petType] || 'Adult';
+        }
+
+        // ====== LIFE STAGE DESCRIPTIONS ======
+        function getLifeStageInfo(petType, stage) {
+            const info = {
+                dog: {
+                    'Puppy (0-6 months)': 'This is a period of extremely rapid growth and development. Focus on early socialization, basic house training, and frequent small meals. Vaccinations are crucial.',
+                    'Junior (6-12 months)': 'Your dog is still growing but gaining independence. Continue training, introduce more complex commands, and ensure proper exercise to burn off energy. Puppy vaccinations should be complete.',
+                    'Adolescent (1-2 years)': 'Often characterized by testing boundaries and increased energy. Consistency in training and sufficient physical and mental stimulation are vital. Consider spaying/neutering if not already done.',
+                    'Adult': 'Your dog is in its prime, typically from 2 years up to the "mature" phase. Maintain a balanced diet, regular exercise, and annual vet check-ups to ensure continued health.',
+                    'Mature Adult': 'As your dog approaches their senior years, you might notice subtle changes in energy or activity. Regular vet check-ups become even more important, and you may need to adjust diet or exercise routines.',
+                    'Senior': 'The golden years. Your dog may experience decreased energy, joint stiffness, or changes in vision/hearing. Provide softer food, comfortable bedding, and gentle exercise. Semi-annual vet visits are highly recommended for early detection of age-related issues.'
+                },
+                cat: {
+                    'Kitten': 'Rapid development and learning. Focus on vaccinations, parasite control, and early socialization. Provide safe toys and scratching posts.',
+                    'Junior (6-12 months)': 'Playful and energetic. Continue vaccinations and establish good litter box habits. This is a good time for spaying/neutering.',
+                    'Adolescent (1-2 years)': 'Full of energy and curiosity. Ensure plenty of environmental enrichment, including climbing structures and interactive toys. Dental care becomes more important.',
+                    'Adult': 'Prime years for activity and health. Maintain a balanced diet, regular play, and annual vet check-ups. Monitor weight to prevent obesity.',
+                    'Mature': 'Subtle signs of aging may appear. Consider more frequent vet visits (e.g., every 6-12 months) and a diet suitable for a mature cat.',
+                    'Senior': 'Often calmer, but may develop age-related health issues like arthritis, kidney disease, or hyperthyroidism. Provide comfortable resting spots, easier access to resources, and monitor changes in behavior or appetite. Regular vet visits are essential.'
+                },
+                rabbit: {
+                    'Baby': 'Delicate and growing quickly. Needs proper diet (alfalfa hay for kits) and a safe, predator-free environment. Very vulnerable at this stage.',
+                    'Junior (6-12 months)': 'Becoming more independent and playful. Introduce a variety of safe vegetables and ensure unlimited access to timothy hay. Spaying/neutering is often done around this age.',
+                    'Adult': 'Active and typically healthy. Unlimited timothy hay, fresh greens, and fresh water are crucial. Regular exercise outside the cage is vital for physical and mental health.',
+                    'Mature': 'May start to slow down slightly. Monitor weight and dental health more closely. Ensure their environment is comfortable and safe.',
+                    'Senior': 'Can be prone to arthritis, dental issues, and other age-related conditions. Provide soft bedding, easy access to food/water, and gentle handling. Regular vet checks are very important for seniors.'
+                },
+                hamster: {
+                    'Baby': 'Very small and vulnerable. Needs gentle handling and a protein-rich diet for growth. Keep warm and minimize stress.',
+                    'Juvenile': 'Becoming more active and exploring. Ensure a spacious cage with an appropriate wheel and burrowing material.',
+                    'Adult': 'Peak activity and breeding age. Provide a stimulating environment with plenty of opportunities for exercise and foraging.',
+                    'Senior': 'May show signs of slowing down, weight loss, or joint stiffness. Ensure easy access to food and water, and provide softer bedding. Keep their environment stress-free.'
+                },
+                bird: {
+                    'Hatchling': 'Newly hatched and dependent. Requires hand-feeding or parental care, warmth, and a sterile environment.',
+                    'Fledgling (Juvenile)': 'Learning to fly and explore. Still developing coordination and social skills. Continue with a balanced diet and early training.',
+                    'Sub-Adult': 'Transitioning from juvenile to full maturity. May show more independent behaviors. Continue offering diverse foods and mental enrichment.',
+                    'Adult': 'Fully mature and often at their most vibrant. Maintain a balanced diet, provide a spacious cage, and ensure daily out-of-cage time for exercise and social interaction.',
+                    'Senior': 'May exhibit signs of aging such as decreased activity, feather dullness, or changes in appetite. Monitor for age-related health issues and adjust diet or perching as needed. Regular avian vet check-ups are critical.'
+                }
+            };
+            
+            return info[petType]?.[stage] || `Your ${petType} is in the ${stage} life stage. Learn more about their needs at this stage to provide the best care.`;
+        }
+
+        // ====== HEALTH TIPS ======
+        function getHealthTips(petType, age, size = null, breed = null) {
+            let tips = [];
+            const breedInfo = breed ? breedData[petType]?.find(b => b.name === breed) : null;
+            
+            // Add breed-specific tips if available
+            if (breedInfo) {
+                tips.push(`Breed-specific note: ${breedInfo.info}`);
+            }
+            
+            if (petType === 'dog') {
+                tips.push("Annual vet checkups recommended for all dogs. Semi-annual for seniors.");
+                if (age < 1) tips.push("Puppy vaccinations, deworming, and early socialization are vital for development.");
+                if (size === 'large' || size === 'giant') tips.push("Avoid strenuous exercise before 18 months to protect developing joints.");
+                if (age > 7) tips.push("Consider joint supplements and senior-specific diet for older dogs. Watch for signs of arthritis.");
+                tips.push("Regular dental care, including brushing and professional cleanings, prevents gum disease.");
+                tips.push("Maintain a healthy weight to prevent obesity-related health issues.");
+            }
+            else if (petType === 'cat') {
+                tips.push("Annual vet visits for vaccinations and preventative care. Semi-annual for seniors.");
+                tips.push("Regular dental care is important to prevent feline dental disease.");
+                if (age > 7) tips.push("Consider senior bloodwork and urinalysis to monitor kidney and thyroid function.");
+                tips.push("Provide ample fresh water and consider a drinking fountain to encourage hydration.");
+                tips.push("Ensure a clean litter box, multiple scratching posts, and engaging toys for mental stimulation.");
+            }
+            else if (petType === 'rabbit') {
+                tips.push("Unlimited timothy hay is essential for dental and digestive health. Provide a varied diet of fresh greens.");
+                tips.push("Regular exercise outside cage (3+ hours daily) is crucial for physical and mental well-being.");
+                tips.push("Rabbits are fragile; always support their back and hindquarters when handling.");
+                tips.push("Avoid bathing rabbits – spot clean if needed. They are very clean animals.");
+                tips.push("Annual vet checkups with a rabbit-savvy vet are highly recommended.");
+            }
+            else if (petType === 'hamster') {
+                tips.push("Provide a large cage with plenty of bedding for burrowing (at least 6 inches deep).");
+                tips.push("An exercise wheel is essential (solid surface, no wire rungs, appropriate size).");
+                tips.push("Avoid bathing hamsters – they clean themselves. Use a sand bath if desired (chinchilla sand, not dust).");
+                tips.push("A balanced diet of commercial hamster food supplemented with small amounts of fresh fruits and vegetables.");
+                tips.push("Handle gently and frequently to build trust.");
+            }
+            else if (petType === 'bird') {
+                tips.push("Provide a spacious cage with room to stretch wings and move freely. Vary perch sizes and textures.");
+                tips.push("Varied diet including high-quality pellets, fresh fruits, vegetables, and occasional seeds.");
+                tips.push("Daily out-of-cage time for exercise and social interaction is crucial for their well-being.");
+                tips.push("Regular cleaning of the cage, food, and water dishes is vital to prevent illness.");
+                tips.push("Monitor droppings, appetite, and behavior for any signs of illness and consult an avian vet.");
+            }
+            
+            return tips.length ? tips : ["Regular checkups with a qualified veterinarian are highly recommended for optimal pet health."];
+        }
+
+        // ====== AGE CHART GENERATION ======
+        function generateAgeChart(petType, size = null) {
+            const chart = [];
+            const maxAge = {
+                dog: size === 'small' ? 16 : size === 'medium' ? 14 : size === 'large' ? 12 : 10,
+                cat: 20,
+                rabbit: 10,
+                hamster: 3,
+                bird: 50 // Assuming parrot-like lifespan
+            }[petType] || 15; // Default max age if not specified
+            
+            const currentYears = parseInt(document.getElementById('petYears').value) || 0;
+            const currentMonths = parseInt(document.getElementById('petMonths').value) || 0;
+            
+            // Add birth
+            chart.push({
+                petAge: "Birth",
+                humanAge: "0",
+                isCurrent: currentYears === 0 && currentMonths === 0
+            });
+            
+            // Add monthly for first year
+            for (let m = 1; m <= 12; m++) {
+                const age = m / 12;
+                let humanAgeValue;
+                if (petType === 'dog') {
+                    humanAgeValue = calculateDogAge(age, size);
+                } else {
+                    humanAgeValue = calculateGenericAge(petType, age);
+                }
+                
+                chart.push({
+                    petAge: m === 1 ? "1 month" : `${m} months`,
+                    humanAge: humanAgeValue.toFixed(1),
+                    isCurrent: currentYears === 0 && currentMonths === m
+                });
+            }
+            
+            // Add yearly after first year
+            for (let y = 1; y <= maxAge; y++) {
+                // Skip year 1 if it was already covered by "12 months" to avoid duplication,
+                // unless pet is exactly 1 year and 0 months
+                if (y === 1 && currentYears === 1 && currentMonths === 0) {
+                    // This handles the specific case where the input is exactly 1 year and 0 months
+                    // We ensure it gets highlighted if it's the exact current age
+                } else if (y === 1 && (currentYears !== 1 || currentMonths !== 0)) {
+                    continue; // Skip if it's just a general year 1 entry, already covered by 12 months
+                }
+
+                let humanAgeValue;
+                if (petType === 'dog') {
+                    humanAgeValue = calculateDogAge(y, size);
+                } else {
+                    humanAgeValue = calculateGenericAge(petType, y);
+                }
+                
+                chart.push({
+                    petAge: y === 1 ? "1 year" : `${y} years`,
+                    humanAge: humanAgeValue.toFixed(1),
+                    isCurrent: currentYears === y && currentMonths === 0
+                });
+            }
+            
+            // Sort the chart data by pet age to ensure correct order
+            chart.sort((a, b) => {
+                const aAge = (a.petAge === "Birth") ? 0 : (a.petAge.includes("month") ? parseFloat(a.petAge) / 12 : parseFloat(a.petAge));
+                const bAge = (b.petAge === "Birth") ? 0 : (b.petAge.includes("month") ? parseFloat(b.petAge) / 12 : parseFloat(b.petAge));
+                return aAge - bAge;
+            });
+
+            return chart;
+        }
+    </script>
+</body>
+</html>
